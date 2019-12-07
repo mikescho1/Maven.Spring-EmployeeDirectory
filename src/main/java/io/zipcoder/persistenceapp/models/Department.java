@@ -9,16 +9,16 @@ import javax.persistence.Id;
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer departmentNumber;
+    private Integer departmentId;
     private String departmentName;
+    private String departmentManager;
 
     public Department() {
     }
 
-    public Department(Integer departmentNumber, String departmentName, Employee departmentEmployee) {
-        this.departmentNumber = departmentNumber;
+    public Department(Integer departmentId, String departmentName, Employee departmentEmployee) {
+        this.departmentId = departmentId;
         this.departmentName = departmentName;
-
     }
 
 
@@ -30,12 +30,12 @@ public class Department {
 
 
 
-    public Integer getDepartmentNumber() {
-        return departmentNumber;
+    public Integer getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartmentNumber(Integer departmentNumber) {
-        this.departmentNumber = departmentNumber;
+    public void setDepartmentId(Integer departmentNumber) {
+        this.departmentId = departmentNumber;
     }
 
     public String getDepartmentName() {
