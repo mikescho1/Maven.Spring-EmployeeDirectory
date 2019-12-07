@@ -20,6 +20,7 @@ public class Employee {
     private Date hireDate;
     private String manager;
     private Long departmentNumber;
+    private String departmentName;
 
     public Employee() {
     }
@@ -112,5 +113,13 @@ public class Employee {
 
     public void setDepartmentNumber(Long departmentNumber) {
         this.departmentNumber = departmentNumber;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 }

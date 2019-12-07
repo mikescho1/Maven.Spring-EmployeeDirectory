@@ -27,6 +27,16 @@ public class EmployeeService {
         return employeeRepository.findById(id).get();
     }
 
+    public Employee updateEmployeeDepartment(Long id, Employee employeeToUpdate)    {
+
+        if(employeeRepository.findById(employeeToUpdate.getDepartmentNumber()).isPresent()) {
+            Employee originalEmployee = employeeRepository.findById(employeeToUpdate.getDepartmentNumber()).get();
+            originalEmployee.setDepartmentName(employeeToUpdate.getDepartmentName());
+            return employeeRepository.save(originalEmployee);
+
+        }
+    }
+
 
 
 }
