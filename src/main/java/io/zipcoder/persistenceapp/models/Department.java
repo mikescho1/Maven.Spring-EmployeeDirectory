@@ -9,32 +9,24 @@ import javax.persistence.Id;
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer departmentId;
+    private Long departmentId;
     private String departmentName;
     private String departmentManager;
 
     public Department() {
     }
 
-    public Department(Integer departmentId, String departmentName, Employee departmentEmployee) {
+    public Department(Long departmentId, String departmentName, Employee departmentEmployee) {
         this.departmentId = departmentId;
         this.departmentName = departmentName;
     }
 
 
-
-
-
-
-
-
-
-
-    public Integer getDepartmentId() {
+    public Long getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(Integer departmentNumber) {
+    public void setDepartmentId(Long departmentNumber) {
         this.departmentId = departmentNumber;
     }
 

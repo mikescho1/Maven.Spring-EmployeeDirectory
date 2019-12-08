@@ -13,6 +13,9 @@ public class DepartmentService {
     public DepartmentService(DepartmentRepository departmentRepository) {
         this.departmentRepository = departmentRepository;
     }
+    public Department getDepartment(Long departmentId)  {
+        return departmentRepository.findById(departmentId).get();
+    }
 
     public Department create(Department department)   {
         return departmentRepository.save(department);

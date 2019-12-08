@@ -1,10 +1,6 @@
 package io.zipcoder.persistenceapp.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.*;
 @Entity
 public class Employee {
 
@@ -17,15 +13,18 @@ public class Employee {
     private String title;
     private String phoneNumber;
     private String email;
-    private Date hireDate;
-    private String manager;
+    private String hireDate;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee manager;
     private Long departmentNumber;
     private String departmentName;
+    @Transient
+    private Employee employee;
 
     public Employee() {
     }
 
-    public Employee(Long id, String firstName, String lastName, String title, String phoneNumber, String email, Date hireDate, String manager, Long departmentNumber) {
+    public Employee(Long id, String firstName, String lastName, String title, String phoneNumber, String email, String hireDate, Employee manager, Long departmentNumber) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -37,11 +36,17 @@ public class Employee {
         this.departmentNumber = departmentNumber;
     }
 
+    public void setManager(Employee manager) {
+        this.manager = manager;
+    }
 
+    public Employee getEmployee() {
+        return employee;
+    }
 
-
-
-
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 
     public Long getId() {
         return id;
@@ -91,19 +96,19 @@ public class Employee {
         this.email = email;
     }
 
-    public Date getHireDate() {
+    public String getHireDate() {
         return hireDate;
     }
 
-    public void setHireDate(Date hireDate) {
+    public void setHireDate(String hireDate) {
         this.hireDate = hireDate;
     }
 
-    public String getManager() {
+    public Employee getManager() {
         return manager;
     }
 
-    public void setManager(String manager) {
+    public void setManager(Long managerId) {
         this.manager = manager;
     }
 
