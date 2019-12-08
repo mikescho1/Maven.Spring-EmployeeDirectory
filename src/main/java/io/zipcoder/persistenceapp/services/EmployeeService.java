@@ -47,7 +47,8 @@ public class EmployeeService {
 
         employee.setDepartmentNumber(department.getDepartmentId());
 
-        return employee != null && department != null ? employeeRepository.save(employee) : null;
+        return employee != null && department != null ?
+                employeeRepository.save(employee) : null;
     }
 
 
@@ -55,7 +56,8 @@ public class EmployeeService {
         Employee employee = getEmployee(id);
         employee.setHireDate(hireDate);
 
-        return !employee.getHireDate().equals(null) ? employeeRepository.save(employee) : null;
+        return !employee.getHireDate().equals(null) ?
+                employeeRepository.save(employee) : null;
     }
 }
 
