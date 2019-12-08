@@ -25,9 +25,9 @@ public class EmployeeController {
     public ResponseEntity updateEmployeeDepartment(@PathVariable Long id, @RequestBody Long newDeptId)   {
         return new ResponseEntity<>(employeeService.updateEmployeeDepartment(id, newDeptId), HttpStatus.OK);
     }
-
-    public ResponseEntity updadateEmployeeManager(@PathVariable Long id, @RequestBody Employee employee)    {
-        return new ResponseEntity(employeeService.updateEmployeeManager(id, employee), HttpStatus.OK);
+    @PutMapping("/employee/{id}")
+    public ResponseEntity updadateEmployeeManager(@PathVariable Long id, @RequestBody Long newManagerId)    {
+        return new ResponseEntity(employeeService.updateEmployeeManager(id, newManagerId), HttpStatus.OK);
     }
 
 
