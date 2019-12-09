@@ -31,6 +31,9 @@ public class EmployeeController {
     }
 
 
+    public ResponseEntity getEmployeeByManager(Long mgrId)  {
+        return new ResponseEntity(employeeService.getEmployeesByManager(mgrId), HttpStatus.OK);
+    }
 
 
 }

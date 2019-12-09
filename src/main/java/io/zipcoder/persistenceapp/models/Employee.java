@@ -1,6 +1,7 @@
 package io.zipcoder.persistenceapp.models;
 
 import javax.persistence.*;
+
 @Entity
 public class Employee {
 
@@ -127,4 +128,13 @@ public class Employee {
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
     }
+
+//    public ArrayList<Employee> getEmployeesUnderManager(Employee manager) {
+//        ArrayList<Employee> employeeList = new ArrayList<>();
+//        for (Employee e : employeeList) {
+//            if (e.getManager() == manager) {
+//                employeeList.add(e);
+//            }
+//        }   return employeeList;
+//    }
 }

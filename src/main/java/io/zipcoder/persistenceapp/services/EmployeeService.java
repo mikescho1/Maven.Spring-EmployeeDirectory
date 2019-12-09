@@ -31,14 +31,20 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
+    public Employee getEmployeeManager(Long employeeId) {
+        Employee employee = getEmployee(employeeId);
+        Employee manager = employee.getManager();
+        return employeeRepository.findById(manager.getId()).get();
+    }
+
     public Employee findById(Long id) {
         return employeeRepository.findById(id).get();
     }
 
     public Employee updateEmployeeManager(Long id, Long newManagerId) {
-            Employee employee = getEmployee(id);
-            employee.setManager(newManagerId);
-            return employee.getManager() != null ? employeeRepository.save(employee) : null;
+        Employee employee = getEmployee(id);
+        employee.setManager(newManagerId);
+        return employee.getManager() != null ? employeeRepository.save(employee) : null;
     }
 
     public Employee updateEmployeeDepartment(Long id, Long newDeptId) {
@@ -59,6 +65,12 @@ public class EmployeeService {
         return !employee.getHireDate().equals(null) ?
                 employeeRepository.save(employee) : null;
     }
+
+
+    public Iterable<Employee> getEmployeesByManager(Long mgrId) {
+        return employeeRepository.findEmployeeByManagerId(mgrId);
+    }
+
 }
 
 
