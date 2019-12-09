@@ -43,6 +43,10 @@ public class EmployeeController {
         return new ResponseEntity(employeeService.getEmployeesWithNoAssignedManager(), HttpStatus.OK);
     }
 
+    public ResponseEntity getEmployeesByDepartment(Long deptId) {
+        return new ResponseEntity(employeeService.getEmployeesByDepartment(deptId), HttpStatus.OK);
+    }
+
 
 
 

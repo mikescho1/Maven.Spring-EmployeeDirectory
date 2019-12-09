@@ -13,7 +13,8 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
     List<Employee> findEmployeeByManagerIsNull();
 
-    List<Employee>
+    List<Employee> findEmployeeByDepartmentNumber(Long deptId);
+    }
 
 
 

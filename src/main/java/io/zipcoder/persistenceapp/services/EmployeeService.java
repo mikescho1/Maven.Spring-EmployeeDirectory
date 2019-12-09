@@ -90,6 +90,10 @@ public class EmployeeService {
         return employeeRepository.findEmployeeByManagerIsNull();
     }
 
+    public Iterable<Employee> getEmployeesByDepartment(Long deptId) {
+        return employeeRepository.findEmployeeByDepartmentNumber(deptId);
+    }
+
 
 
 
