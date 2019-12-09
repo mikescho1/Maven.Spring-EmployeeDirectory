@@ -10,4 +10,15 @@ import java.util.List;
 public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
     List<Employee> findEmployeeByManagerId(Long mgrId);
+
+    List<Employee> findEmployeeByManagerIsNull();
+
+    List<Employee>
+
+
+
+
+
+
+
 }

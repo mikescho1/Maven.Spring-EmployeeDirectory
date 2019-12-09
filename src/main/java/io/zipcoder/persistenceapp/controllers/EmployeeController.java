@@ -35,5 +35,15 @@ public class EmployeeController {
         return new ResponseEntity(employeeService.getEmployeesByManager(mgrId), HttpStatus.OK);
     }
 
+    public ResponseEntity getEmployeeHierarchy(Long employeeId) {
+        return new ResponseEntity(employeeService.getEmployeeHierarchy(employeeId), HttpStatus.OK);
+    }
+
+    public ResponseEntity getEmployeesWithNoAsignedManager()    {
+        return new ResponseEntity(employeeService.getEmployeesWithNoAssignedManager(), HttpStatus.OK);
+    }
+
+
+
 
 }

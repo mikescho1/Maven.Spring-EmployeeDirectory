@@ -7,6 +7,9 @@ import io.zipcoder.persistenceapp.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class EmployeeService {
 
@@ -70,6 +73,27 @@ public class EmployeeService {
     public Iterable<Employee> getEmployeesByManager(Long mgrId) {
         return employeeRepository.findEmployeeByManagerId(mgrId);
     }
+
+
+    public Iterable<Employee> getEmployeeHierarchy(Long employeeId) {
+        Employee employee = getEmployee(employeeId);
+        List<Employee> managers = new ArrayList<>();
+
+        while (employee.getManager() != null) {
+            employee = employee.getManager();
+            managers.add(employee);
+        }
+        return managers;
+    }
+
+    public Iterable<Employee> getEmployeesWithNoAssignedManager()   {
+        return employeeRepository.findEmployeeByManagerIsNull();
+    }
+
+
+
+
+
 
 }
 
