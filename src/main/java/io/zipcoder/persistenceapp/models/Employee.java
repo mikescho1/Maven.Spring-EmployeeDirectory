@@ -37,6 +37,8 @@ public class Employee {
         this.departmentNumber = departmentNumber;
     }
 
+
+
     public void setManager(Employee manager) {
         this.manager = manager;
     }

@@ -1,5 +1,6 @@
 package io.zipcoder.persistenceapp.services;
 
+import io.zipcoder.persistenceapp.ResourceNotFoundException;
 import io.zipcoder.persistenceapp.models.Department;
 import io.zipcoder.persistenceapp.models.Employee;
 import io.zipcoder.persistenceapp.repositories.DepartmentRepository;
@@ -16,11 +17,6 @@ public class DepartmentService {
     }
     public Department getDepartment(Long departmentId)  {
         return departmentRepository.findById(departmentId).get();
-    }
-
-    public String getDepartmentName(Long deptId)   {
-        Department department = getDepartment(deptId);
-        return department.getDepartmentName();
     }
 
     public Department create(Department department)   {
@@ -48,5 +44,10 @@ public class DepartmentService {
 
     }
 
+    public void verifyDepartment(Long deptId) {
+        if(departmentRepository.existsById(deptId))   {
+            throw new ResourceNotFoundException("Department " + deptId + " not found.");
+        }
+    }
 
 }

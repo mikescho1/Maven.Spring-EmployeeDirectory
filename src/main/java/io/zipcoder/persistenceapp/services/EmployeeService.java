@@ -1,8 +1,8 @@
 package io.zipcoder.persistenceapp.services;
 
+import io.zipcoder.persistenceapp.ResourceNotFoundException;
 import io.zipcoder.persistenceapp.models.Department;
 import io.zipcoder.persistenceapp.models.Employee;
-import io.zipcoder.persistenceapp.repositories.DepartmentRepository;
 import io.zipcoder.persistenceapp.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,55 +14,71 @@ import java.util.List;
 public class EmployeeService {
 
     private EmployeeRepository employeeRepository;
-    private DepartmentRepository departmentRepository;
     private DepartmentService departmentService;
+    private Employee employee;
+    private Department department;
+    private Employee manager;
+
 
     @Autowired
     public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
-    public Employee getEmployee(Long id) {
+    public Employee findEmployeeById(Long id) {
         return employeeRepository.findById(id).get();
+    }
+
+    public Iterable<Employee> findAllEmployees()    {
+        return employeeRepository.findAll();
     }
 
     public Employee createEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
 
-    public Iterable<Employee> findAllEmployees() {
-        return employeeRepository.findAll();
+
+    public Employee updateEmployeeDepartment(Long id, Long newDeptId) {
+        employee = findEmployeeById(id);
+        department = departmentService.getDepartment(newDeptId);
+        employee.setDepartmentNumber(department.getDepartmentId());
+
+        return employeeRepository.save(employee);
     }
 
-    public Employee getEmployeeManager(Long employeeId) {
-        Employee employee = getEmployee(employeeId);
-        Employee manager = employee.getManager();
+    public Employee findEmployeeManager(Long employeeId) {
+        employee = findEmployeeById(employeeId);
+        manager = employee.getManager();
         return employeeRepository.findById(manager.getId()).get();
     }
 
-    public Employee findById(Long id) {
-        return employeeRepository.findById(id).get();
+    public Employee updateEmployeeManager(Long employeeId)  {
+        manager = findEmployeeManager(employeeId);
+        employee.setManager(manager);
+        return employee != null && manager != null ?
+                employeeRepository.save(employee) : null;
+
+
     }
 
+
+
+
+
+
+
+
     public Employee updateEmployeeManager(Long id, Long newManagerId) {
-        Employee employee = getEmployee(id);
+        Employee employee = findEmployeeById(id);
         employee.setManager(newManagerId);
         return employee.getManager() != null ? employeeRepository.save(employee) : null;
     }
 
-    public Employee updateEmployeeDepartment(Long id, Long newDeptId) {
-        Employee employee = getEmployee(id);
-        Department department = departmentService.getDepartment(newDeptId);
 
-        employee.setDepartmentNumber(department.getDepartmentId());
-
-        return employee != null && department != null ?
-                employeeRepository.save(employee) : null;
-    }
 
 
     public Employee updateEmployeeHireDate(Long id, String hireDate) {
-        Employee employee = getEmployee(id);
+        Employee employee = findEmployeeById(id);
         employee.setHireDate(hireDate);
 
         return !employee.getHireDate().equals(null) ?
@@ -71,12 +87,12 @@ public class EmployeeService {
 
 
     public Iterable<Employee> getEmployeesByManager(Long mgrId) {
-        return employeeRepository.findEmployeeByManagerId(mgrId);
+        return employeeRepository.findByManagerId(mgrId);
     }
 
 
     public Iterable<Employee> getEmployeeHierarchy(Long employeeId) {
-        Employee employee = getEmployee(employeeId);
+        Employee employee = findEmployeeById(employeeId);
         List<Employee> managers = new ArrayList<>();
 
         while (employee.getManager() != null) {
@@ -86,16 +102,20 @@ public class EmployeeService {
         return managers;
     }
 
-    public Iterable<Employee> getEmployeesWithNoAssignedManager()   {
-        return employeeRepository.findEmployeeByManagerIsNull();
-    }
+//    public Iterable<Employee> getEmployeesWithNoAssignedManager()   {
+//        return employeeRepository.findEmployeeByManagerIsNull();
+//    }
 
     public Iterable<Employee> getEmployeesByDepartment(Long deptId) {
-        return employeeRepository.findEmployeeByDepartmentNumber(deptId);
+        return employeeRepository.findByDepartmentNumber(deptId);
     }
 
 
-
+    public void verifyEmployee(Long employeeId) {
+        if(employeeRepository.existsById(employeeId))   {
+            throw new ResourceNotFoundException("Employee " + employeeId + " not found.");
+        }
+    }
 
 
 

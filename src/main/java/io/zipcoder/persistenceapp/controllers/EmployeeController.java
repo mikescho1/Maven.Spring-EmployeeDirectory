@@ -1,5 +1,6 @@
 package io.zipcoder.persistenceapp.controllers;
 
+import io.zipcoder.persistenceapp.ResourceNotFoundException;
 import io.zipcoder.persistenceapp.models.Employee;
 import io.zipcoder.persistenceapp.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,18 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @Autowired
-    public EmployeeController() {
+    public EmployeeController(EmployeeService employeeService)  {
+        this.employeeService = employeeService;
+    }
+
+    @GetMapping("employee/{id}")
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id)    {
+        return new ResponseEntity<>(employeeService.findEmployeeById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("employee")
+    public ResponseEntity<Iterable<Employee>> findAllEmployees() {
+        return new ResponseEntity(employeeService.findAllEmployees(), HttpStatus.OK);
     }
 
     @PostMapping("employee")
@@ -22,30 +34,45 @@ public class EmployeeController {
     }
 
     @PutMapping("/employee/{id}")
-    public ResponseEntity updateEmployeeDepartment(@PathVariable Long id, @RequestBody Long newDeptId)   {
-        return new ResponseEntity<>(employeeService.updateEmployeeDepartment(id, newDeptId), HttpStatus.OK);
-    }
-    @PutMapping("/employee/{id}")
-    public ResponseEntity updadateEmployeeManager(@PathVariable Long id, @RequestBody Long newManagerId)    {
-        return new ResponseEntity(employeeService.updateEmployeeManager(id, newManagerId), HttpStatus.OK);
-    }
-
-
-    public ResponseEntity getEmployeeByManager(Long mgrId)  {
-        return new ResponseEntity(employeeService.getEmployeesByManager(mgrId), HttpStatus.OK);
+    public ResponseEntity<Employee> updateEmployeeDepartment(@PathVariable Long id, @RequestBody Long newDeptId)   {
+        try {
+            employeeService.updateEmployeeDepartment(id, newDeptId);
+            return new ResponseEntity(HttpStatus.OK);
+    }   catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    public ResponseEntity getEmployeeHierarchy(Long employeeId) {
-        return new ResponseEntity(employeeService.getEmployeeHierarchy(employeeId), HttpStatus.OK);
+    public ResponseEntity findEmployeeManager(Long employeeId)  {
+        try {
+            return new ResponseEntity(employeeService.findEmployeeManager(employeeId), HttpStatus.OK);
+        }   catch (ResourceNotFoundException e) {
+            e.printStackTrace();
+        }   return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
-    public ResponseEntity getEmployeesWithNoAsignedManager()    {
-        return new ResponseEntity(employeeService.getEmployeesWithNoAssignedManager(), HttpStatus.OK);
-    }
+//    }
 
-    public ResponseEntity getEmployeesByDepartment(Long deptId) {
-        return new ResponseEntity(employeeService.getEmployeesByDepartment(deptId), HttpStatus.OK);
-    }
+
+//    @PutMapping("/employee/{id}")
+//    public ResponseEntity updadateEmployeeManager(@PathVariable Long id, @RequestBody Long newManagerId)    {
+//        return new ResponseEntity(employeeService.updateEmployeeManager(id, newManagerId), HttpStatus.OK);
+//    }
+
+
+//
+//
+//    public ResponseEntity getEmployeeHierarchy(Long employeeId) {
+//        return new ResponseEntity(employeeService.getEmployeeHierarchy(employeeId), HttpStatus.OK);
+//    }
+
+//    public ResponseEntity getEmployeesWithNoAsignedManager()    {
+//        return new ResponseEntity(employeeService.getEmployeesWithNoAssignedManager(), HttpStatus.OK);
+//    }
+
+//    public ResponseEntity getEmployeesByDepartment(Long deptId) {
+//        return new ResponseEntity(employeeService.getEmployeesByDepartment(deptId), HttpStatus.OK);
+//    }
 
 
 
