@@ -1,7 +1,9 @@
 package io.zipcoder.persistenceapp.controllers;
 
+import io.zipcoder.persistenceapp.ResourceNotFoundException;
 import io.zipcoder.persistenceapp.models.Department;
 import io.zipcoder.persistenceapp.models.Employee;
+import io.zipcoder.persistenceapp.repositories.DepartmentRepository;
 import io.zipcoder.persistenceapp.services.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DepartmentController {
 
     private DepartmentService departmentService;
+    private DepartmentRepository departmentRepository;
 
     @Autowired
     public DepartmentController() {
@@ -28,6 +31,12 @@ public class DepartmentController {
     @PutMapping("/department/{id}")
     public ResponseEntity<Department> setDepartmentManager(Long deptId, Employee newManager) {
         return new ResponseEntity<>(departmentService.setDepartmentManager(deptId, newManager), HttpStatus.OK);
+    }
+
+    public void verifyDepartment(Long deptId) {
+        if(departmentRepository.existsById(deptId))   {
+            throw new ResourceNotFoundException("Department " + deptId + " not found.");
+        }
     }
 
 

@@ -1,6 +1,5 @@
 package io.zipcoder.persistenceapp.services;
 
-import io.zipcoder.persistenceapp.ResourceNotFoundException;
 import io.zipcoder.persistenceapp.models.Department;
 import io.zipcoder.persistenceapp.models.Employee;
 import io.zipcoder.persistenceapp.repositories.DepartmentRepository;
@@ -44,10 +43,6 @@ public class DepartmentService {
 
     }
 
-    public void verifyDepartment(Long deptId) {
-        if(departmentRepository.existsById(deptId))   {
-            throw new ResourceNotFoundException("Department " + deptId + " not found.");
-        }
-    }
+
 
 }

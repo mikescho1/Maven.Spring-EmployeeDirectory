@@ -7,11 +7,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
+    Iterable<Employee> findEmployeesByManager_Id(Long managerId);
 
 
 
 
-    Employee findByIdAndDepartmentNumber(Long employeeId, Long deptId);
+
+
+
 
 
 

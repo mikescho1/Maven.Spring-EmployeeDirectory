@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface DepartmentRepository extends CrudRepository<Department, Long> {
 
 
-    publi
+
 
 }
