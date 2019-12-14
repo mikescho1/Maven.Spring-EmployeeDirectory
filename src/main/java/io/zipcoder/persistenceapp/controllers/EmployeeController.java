@@ -106,6 +106,16 @@ public class EmployeeController {
         }
     }
 
+    @PatchMapping("/employees/")
+    public ResponseEntity<Iterable<Employee>> removeEmployeesFromDepartment(Long departmentId)  {
+        try {
+            departmentController.verifyDepartment(departmentId);
+            employeeService.removeEmployeesFromDepartment(departmentId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }   catch (ResourceNotFoundException ex)    {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 
 }

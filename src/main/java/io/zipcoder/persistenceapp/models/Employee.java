@@ -22,6 +22,7 @@ public class Employee {
     @Transient
     private Employee employee;
 
+
     public Employee() {
     }
 
@@ -131,12 +132,5 @@ public class Employee {
         this.departmentName = departmentName;
     }
 
-//    public ArrayList<Employee> getEmployeesUnderManager(Employee manager) {
-//        ArrayList<Employee> employeeList = new ArrayList<>();
-//        for (Employee e : employeeList) {
-//            if (e.getManager() == manager) {
-//                employeeList.add(e);
-//            }
-//        }   return employeeList;
-//    }
+
 }

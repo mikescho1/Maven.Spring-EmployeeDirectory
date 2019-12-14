@@ -97,8 +97,21 @@ public class EmployeeService {
     }
 
     public Iterable<Employee> getEmployeesByDepartment(Long departmentId)   {
-        return employeeRepository.findEmployeeByDepartmentNumber(departmentId);
+        return employeeRepository.findEmployeesBsyDepartmentNumber(departmentId);
     }
+
+    public Iterable<Employee> removeEmployeesFromDepartment(Long departmentId)    {
+       Iterable<Employee> allEmployees = findAllEmployees();
+
+        for(Employee e : allEmployees)   {
+            if(e.getDepartmentNumber() == departmentId) {
+                e.setDepartmentNumber(null);
+            }
+        }
+        return employeeRepository.saveAll(allEmployees);
+    }
+
+
 
 
     }

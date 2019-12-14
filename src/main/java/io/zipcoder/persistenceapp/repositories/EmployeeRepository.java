@@ -11,7 +11,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
     Iterable<Employee> findEmployeesByManagerIsNull(Long managerId);
 
-    Iterable<Employee> findEmployeeByDepartmentNumber(Long departmentId);
+    Iterable<Employee> findEmployeesBsyDepartmentNumber(Long departmentId);
 
 
 

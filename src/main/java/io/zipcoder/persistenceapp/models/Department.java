@@ -1,6 +1,8 @@
 package io.zipcoder.persistenceapp.models;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Department {
@@ -11,6 +13,11 @@ public class Department {
     @ManyToOne
     private Employee departmentManager;
 
+    private
+    @Transient
+    @ManyToMany
+    Set<Employee> deptEmployeeList = new HashSet<>();
+
     public Department() {
     }
 
@@ -19,8 +26,23 @@ public class Department {
         this.departmentName = departmentName;
     }
 
+    public void addEmployeeToDepartment(Employee employee)  {
+        deptEmployeeList.add(employee);
+    }
 
+    public void clearEmployees()  {
+        deptEmployeeList.clear();
+    }
 
+    public void removeEmployeeFromDepartment(Employee employee)   {
+        deptEmployeeList.remove(employee);
+    }
+
+    public void addGroupOfEmployeesToDepartment(Iterable<Employee> employees)   {
+        for (Employee e : employees)    {
+            deptEmployeeList.add(e);
+        }
+    }
 
 
 

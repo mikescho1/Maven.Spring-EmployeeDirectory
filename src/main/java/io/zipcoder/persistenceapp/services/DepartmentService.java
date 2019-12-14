@@ -3,12 +3,14 @@ package io.zipcoder.persistenceapp.services;
 import io.zipcoder.persistenceapp.models.Department;
 import io.zipcoder.persistenceapp.models.Employee;
 import io.zipcoder.persistenceapp.repositories.DepartmentRepository;
+import io.zipcoder.persistenceapp.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service
 public class DepartmentService {
 
     private DepartmentRepository departmentRepository;
+    private EmployeeRepository employeeRepository;
     private EmployeeService employeeService;
 
     @Autowired
@@ -34,8 +36,9 @@ public class DepartmentService {
         Department department = getDepartmentById(deptId);
         department.setDepartmentName(newName);
         return departmentRepository.save(department);
-
     }
+
+
 
 
 
