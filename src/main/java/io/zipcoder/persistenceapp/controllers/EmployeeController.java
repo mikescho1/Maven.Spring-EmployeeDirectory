@@ -70,12 +70,29 @@ public class EmployeeController {
         return new ResponseEntity(employeeService.updateEmployeeManager(employeeId, newManagerId), HttpStatus.OK);
     }
 
-
-
-
     public void verifyEmployee(Long employeeId) {
         if(employeeRepository.existsById(employeeId))   {
             throw new ResourceNotFoundException("Employee " + employeeId + " not found.");
+        }
+    }
+
+    @GetMapping("/employees")
+    public ResponseEntity<Iterable<Employee>> getEmployeesByManager(Long managerId)  {
+        try {
+            verifyEmployee(managerId);
+            return new ResponseEntity<>(employeeService.getEmployeesByManager(managerId), HttpStatus.OK);
+        }   catch (ResourceNotFoundException ex) {
+
+        }   return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/employees/no_manager")
+    public ResponseEntity<Employee> getEmployeesWithNoManager(Long managerId)   {
+        try {
+            verifyEmployee(managerId);
+            return new ResponseEntity<>(employeeService.getEmployeesWithNoManager(managerId), HttpStatus.OK);
+        }   catch (ResourceNotFoundException ex)    {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

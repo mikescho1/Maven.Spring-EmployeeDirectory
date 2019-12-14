@@ -92,9 +92,10 @@ public class EmployeeService {
         return managers;
     }
 
-//    public Iterable<Employee> getEmployeesWithNoAssignedManager()   {
-//        return employeeRepository.findEmployeeByManagerIsNull();
-//    }
+    public Iterable<Employee> getEmployeesWithNoManager(Long managerId)  {
+        employeeRepository.findEmployeesByManagerIsNull(managerId);
+
+    }
 
 
     }
