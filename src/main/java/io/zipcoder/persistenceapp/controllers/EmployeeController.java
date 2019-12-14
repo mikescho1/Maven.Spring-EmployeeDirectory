@@ -87,7 +87,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/no_manager")
-    public ResponseEntity<Employee> getEmployeesWithNoManager(Long managerId)   {
+    public ResponseEntity<Iterable<Employee>> getEmployeesWithNoManager(Long managerId)   {
         try {
             verifyEmployee(managerId);
             return new ResponseEntity<>(employeeService.getEmployeesWithNoManager(managerId), HttpStatus.OK);
