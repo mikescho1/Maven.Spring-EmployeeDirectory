@@ -94,7 +94,10 @@ public class EmployeeService {
 
     public Iterable<Employee> getEmployeesWithNoManager(Long managerId)  {
       return  employeeRepository.findEmployeesByManagerIsNull(managerId);
+    }
 
+    public Iterable<Employee> getEmployeesByDepartment(Long departmentId)   {
+        return employeeRepository.findEmployeeByDepartmentNumber(departmentId);
     }
 
 

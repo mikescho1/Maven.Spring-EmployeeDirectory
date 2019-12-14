@@ -96,6 +96,16 @@ public class EmployeeController {
         }
     }
 
+    @GetMapping("employees/{departmentId}/departmentEmployees")
+    public ResponseEntity<Iterable<Employee>> getEmployeesByDepartment(Long departmentId)   {
+        try {
+            departmentController.verifyDepartment(departmentId);
+            return new ResponseEntity<>(employeeService.getEmployeesByDepartment(departmentId), HttpStatus.OK);
+        }   catch (ResourceNotFoundException ex)    {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 
 }
