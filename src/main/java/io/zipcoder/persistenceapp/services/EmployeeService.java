@@ -37,9 +37,8 @@ public class EmployeeService {
 
     public Employee updateEmployeeDepartment(Long id, Long newDeptId) {
         Employee employee = findEmployeeById(id);
-        Department department = departmentService.getDepartment(newDeptId);
+        Department department = departmentService.getDepartmentById(newDeptId);
         employee.setDepartmentNumber(department.getDepartmentId());
-
         return employeeRepository.save(employee);
     }
 
@@ -49,13 +48,11 @@ public class EmployeeService {
         return employeeRepository.findById(manager.getId()).get();
     }
 
-    public Employee updateEmployeeManager(Long employeeId)  {
+    public Employee updateEmployeeManager(Long employeeId, Long newManagerId)  {
         Employee employee = findEmployeeById(employeeId);
-        Employee manager = findEmployeeManager(employeeId);
-        manager.setManager(manager);
+        Employee manager = findEmployeeManager(newManagerId);
+        employee.setManager(manager);
         return employeeRepository.save(employee);
-
-
     }
 
 
@@ -65,11 +62,7 @@ public class EmployeeService {
 
 
 
-    public Employee updateEmployeeManager(Long id, Long newManagerId) {
-        Employee employee = findEmployeeById(id);
-        employee.setManager(newManagerId);
-        return employee.getManager() != null ? employeeRepository.save(employee) : null;
-    }
+
 
 
 

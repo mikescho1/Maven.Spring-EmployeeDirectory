@@ -64,28 +64,14 @@ public class EmployeeController {
         }   return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
-//    }
-
 
     @PutMapping("/employee/{id}")
-    public ResponseEntity updadateEmployeeManager(@PathVariable Long employaeeId, @RequestBody Long newManagerId)    {
-        return new ResponseEntity(employeeService.updateEmployeeManager(employaeeId, newManagerId), HttpStatus.OK);
+    public ResponseEntity updadateEmployeeManager(@PathVariable Long employeeId, @RequestBody Long newManagerId)    {
+        return new ResponseEntity(employeeService.updateEmployeeManager(employeeId, newManagerId), HttpStatus.OK);
     }
 
 
-//
-//
-//    public ResponseEntity getEmployeeHierarchy(Long employeeId) {
-//        return new ResponseEntity(employeeService.getEmployeeHierarchy(employeeId), HttpStatus.OK);
-//    }
 
-//    public ResponseEntity getEmployeesWithNoAsignedManager()    {
-//        return new ResponseEntity(employeeService.getEmployeesWithNoAssignedManager(), HttpStatus.OK);
-//    }
-
-//    public ResponseEntity getEmployeesByDepartment(Long deptId) {
-//        return new ResponseEntity(employeeService.getEmployeesByDepartment(deptId), HttpStatus.OK);
-//    }
 
     public void verifyEmployee(Long employeeId) {
         if(employeeRepository.existsById(employeeId))   {

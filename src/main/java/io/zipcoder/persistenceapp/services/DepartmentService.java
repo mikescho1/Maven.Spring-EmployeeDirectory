@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
 public class DepartmentService {
 
     private DepartmentRepository departmentRepository;
+    private EmployeeService employeeService;
 
     @Autowired
     public DepartmentService(DepartmentRepository departmentRepository) {
         this.departmentRepository = departmentRepository;
     }
-    public Department getDepartment(Long departmentId)  {
+    public Department getDepartmentById(Long departmentId)  {
         return departmentRepository.findById(departmentId).get();
     }
 
@@ -22,24 +23,17 @@ public class DepartmentService {
         return departmentRepository.save(department);
     }
 
-    public Department setDepartmentManager(Long deptId, Employee newManager)  {
-        Department department = getDepartment(deptId);
-        newManager = new Employee();
+    public Department setDepartmentManager(Long deptId, Long newManagerId) {
+        Department department = getDepartmentById(deptId);
+        Employee newManager = employeeService.findEmployeeById(newManagerId);
         department.setDepartmentManager(newManager);
-
-        return department != null && newManager != null ?
-                departmentRepository.save(department) :
-                null;
+        return departmentRepository.save(department);
     }
 
     public Department changeDepartmentName(Long deptId, String newName) {
-        Department department = getDepartment(deptId);
-        newName = new String();
+        Department department = getDepartmentById(deptId);
         department.setDepartmentName(newName);
-
-        return department != null ?
-                departmentRepository.save(department) :
-                null;
+        return departmentRepository.save(department);
 
     }
 
